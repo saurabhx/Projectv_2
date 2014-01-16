@@ -3,11 +3,11 @@
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="utf-8">
-<title>Data Entry</title>
+
+<title>Admin Student Entry</title>
 <link rel="stylesheet" href="css/style.css" />
 <link href='http://fonts.googleapis.com/css?family=Engagement' rel='stylesheet' type='text/css'>
 <!--[if IE]>

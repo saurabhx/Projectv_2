@@ -1,12 +1,10 @@
 package com.service;
 
-import java.io.IOException;
-import java.nio.CharBuffer;
-
 import com.dao.SemesterDao;
-import com.service.interfaces.Writable;
+import com.service.interfaces.DbReadable;
+import com.service.interfaces.DbWritable;
 
-public class SemesterService implements Readable,Writable{
+public class SemesterService implements DbReadable,DbWritable{
 	SemesterDao semesterDao;
 	
 	public SemesterService(){
@@ -14,18 +12,13 @@ public class SemesterService implements Readable,Writable{
 	} 
 	
 	public void writeToDatabase() {
-		
+		semesterDao.addSemester();
 		
 	}
 
 	public void readFromDatabase() {
-	
+		semesterDao.getAllSemesters();
 		
-	}
-
-	public int read(CharBuffer cb) throws IOException {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

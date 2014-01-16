@@ -1,26 +1,23 @@
 package com.service;
 
-import java.io.IOException;
-import java.nio.CharBuffer;
-import com.service.interfaces.Writable;
+import com.service.interfaces.DbReadable;
+import com.service.interfaces.DbWritable;
 import com.dao.*;
-public class StudentService implements Readable,Writable{
+
+public class StudentService implements DbReadable,DbWritable{
 	StudentDao studentDao;
 	
+	public StudentService(){
+		studentDao=new StudentDao();
+	}
+	
 	public void writeToDatabase() {
-		
+		studentDao.addStudent();
 	}
 
 	public void readFromDatabase() {
-		
+		studentDao.getAllStudents();
 		
 	}
-
-	public int read(CharBuffer cb) throws IOException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
 
 }

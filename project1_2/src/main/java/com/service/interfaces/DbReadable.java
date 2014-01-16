@@ -1,6 +1,6 @@
 package com.service.interfaces;
 
-public interface Readable {
+public interface DbReadable {
 	public void readFromDatabase();
 
 }

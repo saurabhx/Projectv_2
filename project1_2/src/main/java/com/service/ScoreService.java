@@ -1,25 +1,25 @@
 package com.service;
-
-import java.io.IOException;
-import java.nio.CharBuffer;
 import com.dao.ScoreDao;
+import com.service.interfaces.DbReadable;
+import com.service.interfaces.DbWritable;
 
-import com.service.interfaces.Writable;
 
-public class ScoreService implements Readable,Writable{
+
+public class ScoreService implements DbReadable,DbWritable{
 	ScoreDao scoreDao;
+	
+	public ScoreService(){
+		scoreDao=new ScoreDao();
+	}
 
 	public void writeToDatabase() {
-		scoreDao=new ScoreDao();
+		scoreDao.addScore();
 		}
 
 	public void readFromDatabase() {
-	
+		scoreDao.getScore();
 		}
 
-	public int read(CharBuffer cb) throws IOException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 }

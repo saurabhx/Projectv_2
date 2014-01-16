@@ -35,7 +35,7 @@ public class UiController extends HttpServlet {
         SemesterService semesterService=new SemesterService();
         SubjectService subjectService=new SubjectService();
 
-        if (action.equalsIgnoreCase("insertMaster")){
+        if (action.equalsIgnoreCase("insertmaster")){
             String courseName = request.getParameter("coursename");
             String subjectName = request.getParameter("subjectname");
             String semesterName = request.getParameter("semestername");

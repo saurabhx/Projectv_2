@@ -24,24 +24,24 @@
 <body>
 <article>
 <h1>Add Masters</h1>
-<form>
+<form method="POST" action="UiController?action=insertmaster">
 	<ul>
         <li>
         	<label for="name">Course Name:</label>
+            <input name="coursename" type="text" size="40" id="name" />
+        </li>
+        <li>
+        	<label for="semestername">Semester Name:</label>
             <input type="text" size="40" id="name" />
         </li>
         <li>
-        	<label for="name">Semester Name:</label>
-            <input type="text" size="40" id="name" />
-        </li>
-        <li>
-        	<label for="name">Subject Name:</label>
+        	<label for="subjectname">Subject Name:</label>
             <input type="text" size="40" id="name" />
         </li>       
 	</ul>
     <p>
         <button type="submit" class="action">Submit</button>
-        <button type="reset" class="right">Reset</button>
+        <button type="reset"  class="right">Reset</button>
     </p>
 </form>
 </article>

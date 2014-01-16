@@ -39,12 +39,12 @@ public class SemesterDao {
 
 	}
 
-	public void addSemester() {
+	public void addSemester(String semester) {
 		try {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("insert into semester(semestername) values (?)");
 
-			preparedStatement.setString(1, semester.getSemesterName());
+			preparedStatement.setString(1, semester);
 			preparedStatement.executeQuery();
 
 		} catch (SQLException e) {

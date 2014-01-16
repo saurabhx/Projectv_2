@@ -25,10 +25,8 @@ public class ScoreDao {
 		preparedStatement = (PreparedStatement) connection
 				.prepareStatement("select studentid,score from mapstudentscore where subjectid="+subjectId);
 		
-
 		rs = preparedStatement.executeQuery();
 		while (rs.next()) {
-
 			map.put(rs.getInt("studentid"), rs.getDouble("score"));
 
 		}
@@ -44,7 +42,6 @@ public class ScoreDao {
 		preparedStatement.setInt(1, studentId);
 		preparedStatement.setInt(2, subjectId);
 		preparedStatement.setDouble(1, score);
-
 		preparedStatement.executeUpdate();
 
 	}

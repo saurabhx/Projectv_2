@@ -13,8 +13,8 @@ public class CourseService implements DbReadable,DbWritable{
 		courseDao=new CourseDao();
 	}
 	
-	public void writeToDatabase() {
-		courseDao.addCourse();
+	public void writeToDatabase(String courseName) {
+		courseDao.addCourse(courseName);
 		
 	}
 

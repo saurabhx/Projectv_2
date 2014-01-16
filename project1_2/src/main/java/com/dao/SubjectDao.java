@@ -38,7 +38,7 @@ public class SubjectDao {
 
 	}
 
-	public void addSubject(Subject subject) throws SQLException {
+	public void addSubject(String subject) throws SQLException {
 
 		PreparedStatement preparedStatement = connection
 				.prepareStatement("insert into subject(subjectname) values ( ?)");

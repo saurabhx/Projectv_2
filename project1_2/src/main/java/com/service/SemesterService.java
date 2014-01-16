@@ -11,8 +11,8 @@ public class SemesterService implements DbReadable,DbWritable{
 		semesterDao=new SemesterDao();
 	} 
 	
-	public void writeToDatabase() {
-		semesterDao.addSemester();
+	public void writeToDatabase(String semesterName) {
+		semesterDao.addSemester(semesterName);
 		
 	}
 

@@ -35,11 +35,11 @@ public class CourseDao {
 
 	}
 
-	public void addCourse(Course course) throws SQLException {
+	public void addCourse(String courseName) throws SQLException {
 
 		preparedStatement = (PreparedStatement) connection
 				.prepareStatement("insert into course (coursename) values (?)");
-		preparedStatement.setString(1, course.getCourseName());
+		preparedStatement.setString(1, courseName);
 		preparedStatement.executeUpdate();
 
 	}

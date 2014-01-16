@@ -23,8 +23,8 @@ public class ScoreDao {
 		Map<Integer, Double> map = new HashMap<Integer, Double>();
 
 		preparedStatement = (PreparedStatement) connection
-				.prepareStatement("select studentid,score from mapstudentscore where subjectid=?");
-		preparedStatement.setInt(1, subjectId);
+				.prepareStatement("select studentid,score from mapstudentscore where subjectid="+subjectId);
+		
 
 		rs = preparedStatement.executeQuery();
 		while (rs.next()) {

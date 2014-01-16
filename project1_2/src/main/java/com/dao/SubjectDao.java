@@ -20,38 +20,32 @@ public class SubjectDao {
 		connection = com.util.DbUtil.getConnection();
 	}
 
-	public List<Subject> getAllSubjects() {
+	public List<Subject> getAllSubjects() throws SQLException {
 		List<Subject> subjects = new ArrayList<Subject>();
-		try {
-			Statement statement = connection.createStatement();
 
-			ResultSet rs = statement.executeQuery("select * from subject");
+		Statement statement = connection.createStatement();
 
-			while (rs.next()) {
+		ResultSet rs = statement.executeQuery("select * from subject");
 
-				subject.setSubjectId(rs.getInt("subjectid"));
-				subject.setSubjectName(rs.getString("subjectname"));
-				subjects.add(subject);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		while (rs.next()) {
+
+			subject.setSubjectId(rs.getInt("subjectid"));
+			subject.setSubjectName(rs.getString("subjectname"));
+			subjects.add(subject);
 		}
 
 		return subjects;
 
 	}
 
-	public void addSubject(Subject subject) {
-		try {
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into subject(subjectname) values ( ?)");
+	public void addSubject(Subject subject) throws SQLException {
 
-			preparedStatement.setString(1, subject.getSubjectName());
-			preparedStatement.executeQuery();
+		PreparedStatement preparedStatement = connection
+				.prepareStatement("insert into subject(subjectname) values ( ?)");
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		preparedStatement.setString(1, subject.getSubjectName());
+		preparedStatement.executeQuery();
+
 	}
 
 }

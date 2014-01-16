@@ -21,9 +21,9 @@ public class SemesterDao {
 		connection = com.util.DbUtil.getConnection();
 	}
 
-	public List<Semester> getAllSemesters() {
+	public List<Semester> getAllSemesters() throws SQLException {
 		List<Semester> semesters = new ArrayList<Semester>();
-		try {
+		
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery("select * from Semester");
 			while (rs.next()) {
@@ -34,9 +34,7 @@ public class SemesterDao {
 
 				semesters.add(semester);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 		return semesters;
 
 	}
@@ -44,7 +42,7 @@ public class SemesterDao {
 	public void addSemester() {
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into semester(semestername) values ( ?)");
+					.prepareStatement("insert into semester(semestername) values (?)");
 
 			preparedStatement.setString(1, semester.getSemesterName());
 			preparedStatement.executeQuery();

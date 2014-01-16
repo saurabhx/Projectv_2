@@ -3,13 +3,72 @@
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<title>Data Entry</title>
+<link rel="stylesheet" href="css/style.css" />
+<link href='http://fonts.googleapis.com/css?family=Engagement' rel='stylesheet' type='text/css'>
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.uniform.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      $(function(){
+        $("input:checkbox, input:radio, input:file, select").uniform();
+      });
+    </script>
 </head>
 <body>
-
-</body>
-</html>
+<article>
+<h1>Add Student</h1>
+<form>
+	<ul>
+        <li>
+        	<label for="name">Your Name:</label>
+            <input type="text" size="40" id="name" />
+        </li>
+        
+        <li>
+            <label for="car">Choose Course</label>
+            <select id="car">
+                <option>Computer Science</option>
+                <option>Mechanical</option>
+                <option>Civil</option>
+                <option>Electronics</option>
+                <option>IT</option>
+            </select>
+        </li>
+        <li>
+            <label for="car">Choose Semester</label>
+            <select id="car">
+                <option>First</option>
+                <option>Second</option>
+                <option>Third</option>
+                <option>Fourth</option>
+                <option>Fifth</option>
+				<option>Sixth</option>
+				<option>Seventh</option>
+				<option>Eighth</option>
+            </select>
+        </li>
+        <li>
+            <label for="car">Choose Subject</label>
+            <select id="car">
+                <option>DAA</option>
+                <option>Artificial Intelligence</option>
+                <option>OS</option>
+                <option>Graph Theory</option>
+                <option>DBMS</option>
+            </select>
+        </li>
+       
+	</ul>
+    <p>
+        <button type="submit" class="action">Submit</button>
+        <button type="reset" class="right">Reset</button>
+    </p>
+</form>
+</article>

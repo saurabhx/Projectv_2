@@ -27,7 +27,7 @@
 <form>
 	<ul>
         <li>
-        	<label for="name">Your Name:</label>
+        	<label for="name">Student Name:</label>
             <input type="text" size="40" id="name" />
         </li>
         

@@ -24,7 +24,12 @@ public class SubjectService implements DbReadable,DbWritable{
 	}
 
 	public void readFromDatabase() {
-		subjectDao.getAllSubjects();
+		try {
+			subjectDao.getAllSubjects();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

@@ -19,7 +19,7 @@ public class CourseService implements DbReadable,DbWritable{
 	}
 
 	public void readFromDatabase() {
-		courseDao.getAllCourses();
+		courseDao.getAllCourse();
 		
 	}
 

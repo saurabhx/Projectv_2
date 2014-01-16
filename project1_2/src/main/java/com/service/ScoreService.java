@@ -1,4 +1,6 @@
 package com.service;
+import java.sql.SQLException;
+
 import com.dao.ScoreDao;
 import com.service.interfaces.DbReadable;
 import com.service.interfaces.DbWritable;
@@ -13,11 +15,21 @@ public class ScoreService implements DbReadable,DbWritable{
 	}
 
 	public void writeToDatabase() {
-		scoreDao.addScore();
+		try {
+			scoreDao.addScore(0, 0, 0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		}
 
 	public void readFromDatabase() {
-		scoreDao.getScore();
+		try {
+			scoreDao.getScore(0);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		}
 
 	

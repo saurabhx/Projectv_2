@@ -32,6 +32,11 @@ public class ScoreService implements DbReadable,DbWritable{
 		}
 		}
 
+	public void setSubId(int parseInt) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

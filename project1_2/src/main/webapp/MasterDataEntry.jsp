@@ -21,6 +21,7 @@
       });
     </script>
 </head>
+
 <body>
 <article>
 <h1>Add Masters</h1>
@@ -32,11 +33,11 @@
         </li>
         <li>
         	<label for="semestername">Semester Name:</label>
-            <input type="text" size="40" id="name" />
+            <input name="semestername" type="text" size="40" id="name" />
         </li>
         <li>
         	<label for="subjectname">Subject Name:</label>
-            <input type="text" size="40" id="name" />
+            <input name="subjectname" type="text" size="40" id="name" />
         </li>       
 	</ul>
     <p>

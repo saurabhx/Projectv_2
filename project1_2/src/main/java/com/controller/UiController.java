@@ -40,12 +40,14 @@ public class UiController extends HttpServlet {
             String subjectName = request.getParameter("subjectname");
             String semesterName = request.getParameter("semestername");
             
-            
+            if(courseName!=null)
             courseService.writeToDatabase(courseName);
+            if(subjectName!=null)
             subjectService.writeToDatabase(subjectName);
+            if(semesterName!=null)
             semesterService.writeToDatabase(semesterName);
             forward = HOME_PAGE;
 	}
-	}
+	};
 
 }

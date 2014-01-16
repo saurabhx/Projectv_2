@@ -28,7 +28,7 @@ public class StudentDao {
 				.prepareStatement("insert into student(studentname) values (?)");
 
 		preparedStatement.setString(1, student.getStudentName());
-		preparedStatement.executeQuery();
+		preparedStatement.executeUpdate();
 
 		preparedStatement = connection
 				.prepareStatement("select last_insert_id() from student");

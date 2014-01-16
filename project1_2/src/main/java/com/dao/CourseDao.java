@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.model.Course;
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.ResultSet;
 import com.util.DbUtil;
 
 public class CourseDao {
@@ -42,6 +43,25 @@ public class CourseDao {
 		preparedStatement.setString(1, courseName);
 		preparedStatement.executeUpdate();
 
+	}
+
+	public boolean courseDoesNotExist(String courseName) throws SQLException {
+		
+		try {
+			preparedStatement = (PreparedStatement) connection
+					.prepareStatement("select * from course where coursename="+courseName);
+			rs=preparedStatement.executeQuery();
+			
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(rs.next())
+		{
+		return false;
+		}else return true;
+		
 	}
 
 }

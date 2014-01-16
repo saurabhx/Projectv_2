@@ -14,8 +14,16 @@ public class SemesterService implements DbReadable,DbWritable{
 	} 
 	
 	public void writeToDatabase(String semesterName) {
+		if(semesterNameDoesNotExist(semesterName))
 		semesterDao.addSemester(semesterName);
 		
+	}
+
+	private boolean semesterNameDoesNotExist(String semesterName) {
+		if(semesterDao.semesterDoesNotExist(semesterName))
+			return true; 
+		
+		return false;
 	}
 
 	public void readFromDatabase() {
@@ -25,6 +33,11 @@ public class SemesterService implements DbReadable,DbWritable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+
+	public void writeToDatabase() {
+		// TODO Auto-generated method stub
 		
 	}
 

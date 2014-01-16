@@ -8,9 +8,42 @@
   	<servlet-name>UiController</servlet-name>
   	<servlet-class>com.controller.UiController</servlet-class>
   </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>Controller</display-name>
+  	<servlet-name>Controller</servlet-name>
+  	<servlet-class>com.controller.Controller</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>C</display-name>
+  	<servlet-name>C</servlet-name>
+  	<servlet-class>C</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>PieChartGenerator</display-name>
+  	<servlet-name>PieChartGenerator</servlet-name>
+  	<servlet-class>com.controller.PieChartGenerator</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>UiController</servlet-name>
   	<url-pattern>/UiController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Controller</servlet-name>
+  	<url-pattern>/Controller</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>C</servlet-name>
+  	<url-pattern>/C</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>PieChartGenerator</servlet-name>
+  	<url-pattern>/PieChartGenerator</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>

@@ -1,10 +1,12 @@
 package com.service;
 
 
+import java.sql.SQLException;
+
 import com.dao.*;
 import com.service.interfaces.DbReadable;
 import com.service.interfaces.DbWritable;
-import com.service.interfaces.Writable;
+
 
 public class CourseService implements DbReadable,DbWritable{
 	CourseDao courseDao;
@@ -14,12 +16,36 @@ public class CourseService implements DbReadable,DbWritable{
 	}
 	
 	public void writeToDatabase(String courseName) {
-		courseDao.addCourse(courseName);
+		try {
+			if(courseDoesNotExist(courseName))
+			courseDao.addCourse(courseName);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	private boolean courseDoesNotExist(String courseName) {
+		if(courseDao.courseDoesNotExist(courseName))
+			{
+			return true;
+			}else return false;
 		
 	}
 
 	public void readFromDatabase() {
-		courseDao.getAllCourse();
+		try {
+			courseDao.getAllCourse();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void writeToDatabase() {
+		// TODO Auto-generated method stub
 		
 	}
 

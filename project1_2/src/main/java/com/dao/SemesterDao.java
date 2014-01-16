@@ -9,29 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.model.Semester;
-
 import com.util.DbUtil;
 
 public class SemesterDao {
 	private Connection connection;
 	DbUtil DbUtil;
-	Semester semester = new Semester();
+	ResultSet rs;
+	Semester semester;
 
 	public SemesterDao() {
 		connection = com.util.DbUtil.getConnection();
+		semester = new Semester();
 	}
 
 	public List<Semester> getAllSemesters() throws SQLException {
 		List<Semester> semesters = new ArrayList<Semester>();
 		
 			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("select * from Semester");
+		    rs = statement.executeQuery("select * from Semester");
 			while (rs.next()) {
-
 				semester.setSemesterId((rs.getInt("studentid")));
-
 				semester.setSemesterName((rs.getString("studentname")));
-
 				semesters.add(semester);
 			}
 		
@@ -45,11 +43,26 @@ public class SemesterDao {
 					.prepareStatement("insert into semester(semestername) values (?)");
 
 			preparedStatement.setString(1, semester);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean semesterDoesNotExist(String semesterName) {
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery("select * from semester where semestername="+semesterName);
+			if(rs!=null)
+				return false;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+		
+		
 	}
 
 }

@@ -33,5 +33,10 @@ public class SubjectService implements DbReadable,DbWritable{
 		
 	}
 
+	public void writeToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

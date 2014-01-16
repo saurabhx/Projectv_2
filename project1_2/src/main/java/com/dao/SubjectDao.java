@@ -43,8 +43,8 @@ public class SubjectDao {
 		PreparedStatement preparedStatement = connection
 				.prepareStatement("insert into subject(subjectname) values ( ?)");
 
-		preparedStatement.setString(1, subject.getSubjectName());
-		preparedStatement.executeQuery();
+		preparedStatement.setString(1, subject);
+		preparedStatement.executeUpdate();
 
 	}
 

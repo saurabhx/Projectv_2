@@ -17,7 +17,7 @@ public class CourseService implements DbReadable,DbWritable{
 	
 	public void writeToDatabase(String courseName) {
 		try {
-			if(courseDoesNotExist(courseName))
+			//if(courseDoesNotExist(courseName))
 			courseDao.addCourse(courseName);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -26,7 +26,7 @@ public class CourseService implements DbReadable,DbWritable{
 		
 	}
 
-	private boolean courseDoesNotExist(String courseName) {
+	private boolean courseDoesNotExist(String courseName) throws SQLException {
 		if(courseDao.courseDoesNotExist(courseName))
 			{
 			return true;

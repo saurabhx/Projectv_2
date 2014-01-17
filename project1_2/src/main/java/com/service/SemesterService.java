@@ -14,7 +14,7 @@ public class SemesterService implements DbReadable,DbWritable{
 	} 
 	
 	public void writeToDatabase(String semesterName) {
-		if(semesterNameDoesNotExist(semesterName))
+		//if(semesterNameDoesNotExist(semesterName))
 		semesterDao.addSemester(semesterName);
 		
 	}

@@ -15,12 +15,11 @@ import com.service.SubjectService;
 public class UiController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String HOME_PAGE="/welcomepage.jsp";
-	String forward="";
-	String action;
+	private String forward="";
+	private String action="";
 	
     public UiController() {
         super();
-        
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

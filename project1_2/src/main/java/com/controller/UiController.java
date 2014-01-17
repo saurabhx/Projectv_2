@@ -14,7 +14,7 @@ import com.service.SubjectService;
 
 public class UiController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String HOME_PAGE="/homepage.jsp";
+	private static String HOME_PAGE="/welcomepage.jsp";
 	String forward="";
 	String action;
 	

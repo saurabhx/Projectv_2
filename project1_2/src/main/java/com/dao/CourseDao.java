@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.model.Course;
 import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.ResultSet;
 import com.util.DbUtil;
 
 public class CourseDao {

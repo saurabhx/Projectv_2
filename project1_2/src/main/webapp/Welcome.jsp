@@ -5,17 +5,17 @@
 <head>
 <title>Welcome Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Nakamas Pie Chart project</title>
 </head>
 <body>
 
 <div id="container" style="margin:25px auto;border:2px solid black; width:80%; height:500px;">
 <center><div style="font-size: xx-large;">Welcome Page</div></center>
+
 <div id="wrapper" style="margin:30px auto; width:80%; height:100px; ">
-
-
-<div style="font-size: x-large; margin: 10px;">  <a href="MasterDataEntry.jsp">Add Masters</a></div>
-<div style="font-size: x-large; margin:10px;"><a href="DataEntry.jsp">Add Student Details</a></div>
+  <a href="Login.jsp">Login</a>
+  <br>
+<a href="PieChartGenerator">Statistics</a>
 
 
 </div>

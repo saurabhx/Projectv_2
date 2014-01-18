@@ -5,28 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="login.css">
-  <jsp:include page="/DataEntry.jsp"/>
+<title>Login</title>
+<link rel="stylesheet" type="text/css" href="css/login.css">
+ 
 <script language="javascript">
 
-function validateuser(form)
-{
-	
- 
- if(form.username.value == "admin" && form.password.value == "admin")
-  {
-
-	 
-	 window.open("UiController.jsp?action=validateuser");
+function validateuser(form){ 
+ 	if(form.username.value == "admin" && form.password.value == "admin"){
+		window.open("UiController.jsp?action=validateuser");
 	 }
- 
- else
- {
-   alert("Please Enter Password or Username");
+	 else { alert("Incorrect Password"); }
  }
- 
-}
 </script>
 
 </head>

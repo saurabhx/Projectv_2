@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import com.service.SubjectService;
 public class UiController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String HOME_PAGE="/welcomepage.jsp";
+	private static String COMPLETE_STUDENT_PROFILE="/profile.jsp";
 	private String forward="";
 	private String action="";
 	
@@ -23,11 +25,11 @@ public class UiController extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-
+	
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		action = request.getParameter("action");
         
         CourseService courseService=new CourseService();
@@ -40,13 +42,18 @@ public class UiController extends HttpServlet {
             String semesterName = request.getParameter("semestername");
             
             if(courseName!=null)
-            courseService.writeToDatabase(courseName);
+            	courseService.writeToDatabase(courseName);
             if(subjectName!=null)
-            subjectService.writeToDatabase(subjectName);
+            	subjectService.writeToDatabase(subjectName);
             if(semesterName!=null)
-            semesterService.writeToDatabase(semesterName);
+            	semesterService.writeToDatabase(semesterName);
+            
             forward = HOME_PAGE;
+        }
+        if(action.equalsIgnoreCase("validateuser")){
+        	forward =COMPLETE_STUDENT_PROFILE;
+        }
+        RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
 	}
-	};
-
 }

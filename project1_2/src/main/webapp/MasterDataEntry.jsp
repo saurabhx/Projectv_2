@@ -7,7 +7,7 @@
 
 <head>
 
-<title>Admin Master Data Entry</title>
+<title>Hello Admin!</title>
 <link rel="stylesheet" href="css/style.css" />
 <link href='http://fonts.googleapis.com/css?family=Engagement' rel='stylesheet' type='text/css'>
 <!--[if IE]>

@@ -26,10 +26,11 @@ public class SemesterDao {
 		List<Semester> semesters = new ArrayList<Semester>();
 		
 			Statement statement = connection.createStatement();
-		    rs = statement.executeQuery("select * from Semester");
+		    rs = statement.executeQuery("select * from semester");
 			while (rs.next()) {
-				semester.setSemesterId((rs.getInt("studentid")));
-				semester.setSemesterName((rs.getString("studentname")));
+				semester= new Semester();
+				semester.setSemesterId((rs.getInt("semesterId")));
+				semester.setSemesterName((rs.getString("semesterName")));
 				semesters.add(semester);
 			}
 		

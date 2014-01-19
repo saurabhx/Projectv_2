@@ -13,9 +13,9 @@
 <center><div style="font-size: xx-large;">Welcome Page</div></center>
 
 <div id="wrapper" style="margin:30px auto; width:80%; height:100px; ">
-  <a href="Login.jsp">Login</a>
+  <a href="jsp/login.jsp">Login</a>
   <br>
-<a href="PieChartGenerator">Statistics</a>
+<a href="UiController?action=piechartselect">Statistics</a>
 
 
 </div>

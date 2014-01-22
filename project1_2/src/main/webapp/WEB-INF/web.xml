@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
-		 xmlns="http://java.sun.com/xml/ns/javaee"
-		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-		 id="WebApp_ID" 
-		 version="2.5">
-  <display-name>Projectv2</display-name>
-  <servlet>
-  	<description>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0" metadata-complete="true">
+	<display-name>Projectv2</display-name>
+	<servlet>
+		<description>
   	</description>
-  	<display-name>UiController</display-name>
-  	<servlet-name>UiController</servlet-name>
-  	<servlet-class>com.controller.UiController</servlet-class>
-  </servlet>
-  
-  <servlet>
-  	<description>
-  	</description>
-  	<display-name>PieChartGenerator</display-name>
-  	<servlet-name>PieChartGenerator</servlet-name>
-  	<servlet-class>com.controller.PieChartGenerator</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>UiController</servlet-name>
-  	<url-pattern>/UiController</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-  	<servlet-name>PieChartGenerator</servlet-name>
-  	<url-pattern>/PieChartGenerator</url-pattern>
-  </servlet-mapping>
+		<display-name>UiController</display-name>
+		<servlet-name>UiController</servlet-name>
+		<servlet-class>com.controller.UiController</servlet-class>
+	</servlet>
 
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  
-  </web-app>
+	<servlet>
+		<description>
+  	</description>
+		<display-name>PieChartGenerator</display-name>
+		<servlet-name>PieChartGenerator</servlet-name>
+		<servlet-class>com.controller.PieChartGenerator</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UiController</servlet-name>
+		<url-pattern>/UiController</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>PieChartGenerator</servlet-name>
+		<url-pattern>/PieChartGenerator</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

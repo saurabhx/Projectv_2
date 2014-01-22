@@ -51,7 +51,7 @@ public class PieDao {
 					+ " and score < 50";
 		} else if (i == 2) {
 			query = "select studentid,studentname,score from college.mapstudentscore natural join college.student where subjectid=" + si
-					+ " and marks >= 50 and score <=75";
+					+ " and score >= 50 and score <=75";
 		} else {
 			query = "select studentid,studentname,score from college.mapstudentscore natural join college.student where subjectid=" + si
 					+ " and score > 75";

@@ -45,6 +45,6 @@
     
   </dependencies>
   <build>
-    <finalName>project1_2</finalName>
+    <finalName>training</finalName>
   </build>
 </project>

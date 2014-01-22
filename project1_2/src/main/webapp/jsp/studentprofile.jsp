@@ -76,7 +76,7 @@ $(document).ready( function() {
             var $select = $('#subject');                           
             $select.find('option').remove();                          
             $.each(responseJson, function(key, value) { 
-            	$('#form tr:last').after("<tr> <td></td> <td>"+this.subjectName+'</td><td><input type="numeric" name="marks" /></td></tr>');    
+            	$('#form tr:last').after('<tr> <td></td> <td><input type="text" readonly="readonly" name="sub1" value="'+this.subjectName+'"/></td><td><input type="numeric" name="marks1" /></td></tr>');    
             });
 		});
 	});

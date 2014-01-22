@@ -30,13 +30,14 @@ public class CourseDao {
 			course.setCourseName(rs.getString("coursename"));
 			course.setCourseId(rs.getInt("courseid"));
 			courses.add(course);
+			
 		}
 		return courses;
 
 	}
 
 	public void addCourse(String courseName) throws SQLException {
-
+		
 		preparedStatement = (PreparedStatement) connection
 				.prepareStatement("insert into course (coursename) values (?)");
 		preparedStatement.setString(1, courseName);

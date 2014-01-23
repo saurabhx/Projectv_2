@@ -12,13 +12,11 @@
     	http://www.springframework.org/schema/context/spring-context-3.0.xsd
     	
     	http://www.springframework.org/schema/aop 
-        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
 	
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:aop="http://www.springframework.org/schema/aop"        > 
  
-<util:properties id="db_config" location="db.properties"></util:properties>
 
 <aop:aspectj-autoproxy />
 
@@ -26,17 +24,6 @@
 <context:component-scan base-package="com.controller"></context:component-scan>
 <context:component-scan base-package="com.dao"></context:component-scan>
 <context:component-scan base-package="com.util"></context:component-scan>
-<context:spring-configured/>
+
 </beans>
 
-
-<!-- <bean id="pcg" class="com.controller.PieChartGenerator"></bean>
-<bean id="ui" class="com.controller.UiController"></bean>
-<bean id="dbutil" class="com.util.DbUtil"></bean>
-<bean id="coursedao" class="com.dao.CourseDao"></bean>
-<bean id="piedao" class="com.dao.PieDao"></bean>
-<bean id="scoredao" class="com.dao.ScoreDao"></bean>
-<bean id="semesterdao" class="com.dao.SemesterDao"></bean>
-<bean id="studentdao" class="com.dao.StudentDao"></bean>
-<bean id="subjectdao" class="com.dao.SubjectDao"></bean>
- -->

@@ -18,12 +18,12 @@ import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Component;
 
 import com.dao.PieDao;
 import com.model.ChartData;
 
-@Configurable
+@Component
 public class PieChartGenerator extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String PIE_CHART_PAGE="jsp/viewpie.jsp";

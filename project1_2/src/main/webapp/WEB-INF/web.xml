@@ -4,6 +4,16 @@
                       http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0" metadata-complete="true">
 	<display-name>Projectv2</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+	    			config.xml
+	    </param-value>
+	</context-param>
+
+
+
 	<servlet>
 		<description>
   	</description>
@@ -11,6 +21,7 @@
 		<servlet-name>UiController</servlet-name>
 		<servlet-class>com.controller.UiController</servlet-class>
 	</servlet>
+
 
 	<servlet>
 		<description>

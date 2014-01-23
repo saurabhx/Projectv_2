@@ -1,6 +1,5 @@
 package com.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,29 +7,30 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.model.Student;
 import com.util.DbUtil;
 
 public class StudentDao {
-	private Connection connection;
-	DbUtil DbUtil;
+	
 	private PreparedStatement preparedStatement;
-	Student student = new Student();
+	private Student student = new Student();
 	private ResultSet rs;
-
-	public StudentDao() {
-		connection = com.util.DbUtil.getConnection();
-	}
-
+	
+	@Autowired
+	DbUtil dbUtil;
+	
+	
 	public int addStudent(Student student) throws SQLException {
 		int studentId = 0;
-		preparedStatement = connection
+		preparedStatement = dbUtil.getConnection()
 				.prepareStatement("insert into student(studentname) values (?)");
 
 		preparedStatement.setString(1, student.getStudentName());
 		preparedStatement.executeUpdate();
 
-		preparedStatement = connection
+		preparedStatement = dbUtil.getConnection()
 				.prepareStatement("select last_insert_id() from student");
 		if (rs.next()) {
 
@@ -43,7 +43,7 @@ public class StudentDao {
 	public List<Student> getAllStudents() throws SQLException {
 		List<Student> students = new ArrayList<Student>();
 
-		Statement statement = connection.createStatement();
+		Statement statement = dbUtil.getConnection().createStatement();
 		rs = statement.executeQuery("select * from student");
 		while (rs.next()) {
 
@@ -60,7 +60,7 @@ public class StudentDao {
 
 	public String getStudentNameById(int studentId) throws SQLException {
 
-		preparedStatement = (PreparedStatement) connection
+		preparedStatement = (PreparedStatement)dbUtil.getConnection()
 				.prepareStatement("select studentname from student where studentid= "
 						+ studentId);
 

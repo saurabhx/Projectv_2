@@ -9,13 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+
 import com.dao.CourseDao;
 import com.dao.SemesterDao;
 import com.dao.SubjectDao;
 import com.google.gson.Gson;
 import com.model.Subject;
 
-
+@Configurable
 public class UiController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 		
@@ -26,17 +29,21 @@ public class UiController extends HttpServlet {
 	private String forward="";
 	private String action="";
 	
-    public UiController() {
-        super();
-    }
+	@Autowired
+    private CourseDao courseDao;
     
+    @Autowired
+    private SemesterDao semesterDao;
+    
+    @Autowired
+    private SubjectDao subjectDao;
+    
+
+      
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		action= request.getParameter("action");
-
 		if(action.equalsIgnoreCase("newstudentprofile")){
         	
-        	CourseDao courseDao= new CourseDao();
-        	SemesterDao semesterDao= new SemesterDao();
         	try{
         		request.setAttribute("courses", courseDao.getAllCourse());
         		request.setAttribute("semesters", semesterDao.getAllSemesters());
@@ -51,9 +58,8 @@ public class UiController extends HttpServlet {
 
 		else if(action.equalsIgnoreCase("piechartselect")){
         	
-        	CourseDao courseDao= new CourseDao();
-        	SemesterDao semesterDao= new SemesterDao();
         	try{
+        		courseDao=new CourseDao();
         		request.setAttribute("courses", courseDao.getAllCourse());
         		request.setAttribute("semesters", semesterDao.getAllSemesters());
         		
@@ -69,7 +75,6 @@ public class UiController extends HttpServlet {
         	int cid=Integer.parseInt(request.getParameter("course"));
         	int sid=Integer.parseInt(request.getParameter("semester"));
          
-        	SubjectDao subjectDao = new SubjectDao();
         	List<Subject> subjects = subjectDao.getSubjectList(sid, cid);
             
         	String json= new Gson().toJson(subjects);

@@ -1,6 +1,5 @@
 package com.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,21 +8,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.model.ChartData;
 import com.util.DbUtil;
 
+@Component
 public class PieDao {
-	private Connection connection;
 
+	@Autowired
+	DbUtil dbUtil;
 	
-	public PieDao(){
-		connection=DbUtil.getConnection();
-	}
+	
 	public List<ChartData> getPiechartOutputs(int i) {
 		List<ChartData> qr = new ArrayList<ChartData>();
 
 		try {
-			Statement statement = connection.createStatement();
+			Statement statement = dbUtil.getConnection().createStatement();
 			ResultSet rs = statement
 					.executeQuery("select studentid,studentname,score from college.mapstudentscore natural join college.student where subjectid="
 							+ i);
@@ -58,7 +60,7 @@ public class PieDao {
 		}
 
 		try {
-			Statement statement = connection.createStatement();
+			Statement statement = dbUtil.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
 				ChartData out = new ChartData();
@@ -78,7 +80,7 @@ public class PieDao {
 	public Map<String, Double> getHighestMarksForSubject(int subjectId) {
 		Map<String, Double> map = new HashMap<String, Double>();
 		try {
-			Statement statement = connection.createStatement();
+			Statement statement = dbUtil.getConnection().createStatement();
 
 			ResultSet rs = statement
 					.executeQuery("select studentname,score from mapstudentscore natural join student where score  in (select max(score) from mapstudentscore where subjectId ="+subjectId+")");
@@ -97,7 +99,7 @@ public class PieDao {
 	public String getSubjectNameById(int subjectId){
 		String subjectName="";
 		try {
-			Statement statement = connection.createStatement();
+			Statement statement = dbUtil.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("select subjectname from subject where subjectId="+subjectId);
 			while (rs.next()) {
 				subjectName= rs.getString("subjectName");

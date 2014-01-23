@@ -17,35 +17,28 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import com.dao.PieDao;
 import com.model.ChartData;
 
-/**
- * Servlet implementation class PieChartGenerator
- */
+@Configurable
 public class PieChartGenerator extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String PIE_CHART_PAGE="jsp/viewpie.jsp";
 	private int subjectId;
+	
+	@Autowired
 	private PieDao pieDao;
 	
-	public PieChartGenerator(){
-		super();
-		pieDao = new PieDao();
-	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		subjectId=(Integer.parseInt(request.getParameter("subject")));
-	
-		
+			
 		List<ChartData>qr=pieDao.getPiechartOutputs(subjectId);
 		List<ChartData>qr50=pieDao.getPiechartOutputsWithCondition(1,subjectId);
 		List<ChartData>qr5075=pieDao.getPiechartOutputsWithCondition(2,subjectId);

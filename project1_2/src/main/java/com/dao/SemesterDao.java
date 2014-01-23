@@ -1,6 +1,5 @@
 package com.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,24 +7,29 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.model.Semester;
 import com.util.DbUtil;
 
+@Component
 public class SemesterDao {
-	private Connection connection;
-	DbUtil DbUtil;
-	ResultSet rs;
-	Semester semester;
+	
+	
+	@Autowired
+	DbUtil dbUtil;
+	private ResultSet rs;
+	private Semester semester;
 
 	public SemesterDao() {
-		connection = com.util.DbUtil.getConnection();
-		semester = new Semester();
+			semester = new Semester();
 	}
 
 	public List<Semester> getAllSemesters() throws SQLException {
 		List<Semester> semesters = new ArrayList<Semester>();
 		
-			Statement statement = connection.createStatement();
+			Statement statement = dbUtil.getConnection().createStatement();
 		    rs = statement.executeQuery("select * from semester");
 			while (rs.next()) {
 				semester= new Semester();
@@ -40,7 +44,7 @@ public class SemesterDao {
 
 	public void addSemester(String semester) {
 		try {
-			PreparedStatement preparedStatement = connection
+			PreparedStatement preparedStatement = dbUtil.getConnection()
 					.prepareStatement("insert into semester(semestername) values (?)");
 
 			preparedStatement.setString(1, semester);
@@ -53,7 +57,7 @@ public class SemesterDao {
 
 	public boolean semesterDoesNotExist(String semesterName) {
 		try {
-			Statement statement = connection.createStatement();
+			Statement statement = dbUtil.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("select * from semester where semestername="+semesterName);
 			if(rs!=null)
 				return false;

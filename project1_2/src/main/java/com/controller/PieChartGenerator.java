@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.dao.PieDao;
 import com.model.ChartData;
@@ -31,6 +33,11 @@ public class PieChartGenerator extends HttpServlet {
 	
 	@Autowired
 	private PieDao pieDao;
+	
+	 public void init(ServletConfig config) {
+	        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+	          config.getServletContext());
+	      }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

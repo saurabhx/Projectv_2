@@ -14,11 +14,8 @@ public class StudentService {
 	@Autowired
 	StudentDao studentDao;
 
-	
 	public void addStudent(Student student) throws SQLException {
-		
 			studentDao.addStudent(student);
-		
 	}
 
  public List<Student> getAllStudents() throws SQLException{

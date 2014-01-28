@@ -14,7 +14,7 @@ public class SemesterService {
 	SemesterDao semesterDao;
 	
 	
-	public void addSemester(String semesterName) {
+	public void addSemester(String semesterName) throws SQLException {
 		
 		 semesterDao.addSemester(semesterName);
 		

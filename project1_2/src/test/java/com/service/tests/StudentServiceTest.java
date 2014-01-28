@@ -2,8 +2,6 @@ package com.service.tests;
 
 import java.sql.SQLException;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;

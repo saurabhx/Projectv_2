@@ -1,5 +1,6 @@
 package com.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,16 +15,16 @@ public class PieService {
 	@Autowired
 	PieDao pieDao;
 	
-	public List<ChartData> getPiechartOutputs(int i) {
-		return pieDao.getPiechartOutputs(i);
+	public List<ChartData> getPiechartOutputs(int subjectId) throws SQLException {
+		return pieDao.getPiechartOutputs(subjectId);
 	}
-	public List<ChartData> getPiechartOutputsWithCondition(int i, int si){
-		return pieDao.getPiechartOutputsWithCondition(i, si);
+	public List<ChartData> getPiechartOutputsWithCondition(int range, int subjectId) throws SQLException{
+		return pieDao.getPiechartOutputsWithCondition(range, subjectId);
 	}
-	public Map<String, Double> getHighestMarksForSubject(int subjectId){
+	public Map<String, Double> getHighestMarksForSubject(int subjectId) throws SQLException{
 		return pieDao.getHighestMarksForSubject(subjectId);
 	}
-	public String getSubjectNameById(int subjectId){
+	public String getSubjectNameById(int subjectId) throws SQLException{
 		return pieDao.getSubjectNameById(subjectId);
 	}
 }

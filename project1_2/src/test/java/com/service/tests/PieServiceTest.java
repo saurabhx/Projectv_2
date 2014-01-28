@@ -1,5 +1,7 @@
 package com.service.tests;
 
+import java.sql.SQLException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -21,22 +23,22 @@ public class PieServiceTest {
     }
 	
 	@Test
-	public void shouldCallGetPieChartOutput(){
+	public void shouldCallGetPieChartOutput() throws SQLException{
 		pieService.getPiechartOutputs(1);
 		Mockito.verify(pieDao,Mockito.times(1)).getPiechartOutputs(Mockito.anyInt());
 	}
 	@Test
-	public void shouldCallGetPieChartOutputWithCondition(){
+	public void shouldCallGetPieChartOutputWithCondition() throws SQLException{
 		pieService.getPiechartOutputsWithCondition(1, 1);
 		Mockito.verify(pieDao,Mockito.times(1)).getPiechartOutputsWithCondition(Mockito.anyInt(), Mockito.anyInt());
 	}
 	@Test
-	public void shouldCallGetHighestMarksForSubject(){
+	public void shouldCallGetHighestMarksForSubject() throws SQLException{
 		pieService.getHighestMarksForSubject(1);
 		Mockito.verify(pieDao,Mockito.times(1)).getHighestMarksForSubject(Mockito.anyInt());
 	}
 	@Test
-	public void shouldCallGetSubjectNameById(){
+	public void shouldCallGetSubjectNameById() throws SQLException{
 		pieService.getSubjectNameById(1);
 		Mockito.verify(pieDao,Mockito.times(1)).getSubjectNameById(Mockito.anyInt());
 	}

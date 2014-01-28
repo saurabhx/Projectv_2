@@ -28,6 +28,7 @@ public class CourseDao {
 		preparedStatement = dbUtil.getConnection()
 				.prepareStatement("select * from course");
 		resultSet = preparedStatement.executeQuery();
+	
 		while (resultSet.next()) {
 			Course course = new Course();
 			course.setCourseName(resultSet.getString("coursename"));
@@ -45,6 +46,7 @@ public class CourseDao {
 				.prepareStatement("insert into course (coursename) values (?)");
 		preparedStatement.setString(1, courseName);
 		preparedStatement.executeUpdate();
+		
 
 	}
 

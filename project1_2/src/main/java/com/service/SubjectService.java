@@ -17,7 +17,7 @@ public class SubjectService {
 	public List<Subject> getAllSubjects() throws SQLException{
 		return subjectDao.getAllSubjects();
 	}
-	public List<Subject> getSubjectsBySemesterAndCourse(int semesterId, int courseId){
+	public List<Subject> getSubjectsBySemesterAndCourse(int semesterId, int courseId) throws SQLException{
 		return subjectDao.getSubjectsBySemesterAndCourse(semesterId, courseId);
 	}
 	public void addSubject(String subjectName) throws SQLException{

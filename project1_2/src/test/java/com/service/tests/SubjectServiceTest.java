@@ -33,7 +33,7 @@ public class SubjectServiceTest {
 	}
 	
 	@Test
-	public void shouldCallGetSubjectBySemesterAndCourse(){
+	public void shouldCallGetSubjectBySemesterAndCourse() throws SQLException{
 		subjectService.getSubjectsBySemesterAndCourse(1, 1);
 		Mockito.verify(subjectDao,Mockito.times(1)).getSubjectsBySemesterAndCourse(Mockito.anyInt(), Mockito.anyInt());
 	}

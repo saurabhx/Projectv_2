@@ -13,13 +13,13 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.util.reflection.Whitebox;
 
-import com.dao.CourseDao;
-import com.model.Course;
+import com.dao.SemesterDao;
+import com.model.Semester;
 import com.util.DbUtil;
 
-public class CourseDaoTest {
+public class SemesterDaoTest {
 
-	CourseDao courseDao;
+	SemesterDao semesterDao;
 	DbUtil dbUtil;
 
 	PreparedStatement preparedStatement;
@@ -29,10 +29,10 @@ public class CourseDaoTest {
 	@Before
 	public void setup() {
 
-		courseDao = new CourseDao();
+		semesterDao = new SemesterDao();
 
 		dbUtil = Mockito.mock(DbUtil.class);
-		Whitebox.setInternalState(courseDao, "dbUtil", dbUtil);
+		Whitebox.setInternalState(semesterDao, "dbUtil", dbUtil);
 
 		connection = Mockito.mock(Connection.class);
 		preparedStatement = Mockito.mock(PreparedStatement.class);
@@ -41,29 +41,29 @@ public class CourseDaoTest {
 	}
 
 	@Test
-	public void shouldAddCourseCorrectly() throws SQLException {
+	public void shouldAddSemesterCorrectly() throws SQLException {
 
 		mocking();
 
-		courseDao.addCourse("Maths");
+		semesterDao.addSemester("first");
 
 		Mockito.verify(preparedStatement, Mockito.times(1)).setString(
-				Mockito.eq(1), Mockito.eq("Maths"));
+				Mockito.eq(1), Mockito.eq("first"));
 		Mockito.verify(preparedStatement, Mockito.times(1)).executeUpdate();
 		Mockito.verify(connection, Mockito.times(1)).prepareStatement(
-				Mockito.eq("insert into course (coursename) values (?)"));
+				Mockito.eq("insert into semester(semestername) values (?)"));
+
 	}
 
 	@Test
-	public void shouldReturnCoursesCorrectly() throws SQLException {
-
+	public void shouldReturnSemestersCorrectly() throws SQLException {
 		mocking();
 
-		List<Course> courses = courseDao.getAllCourse();
-		assertTrue(0 == courses.size());
+		List<Semester> semesters = semesterDao.getAllSemesters();
+		assertTrue(0 == semesters.size());
 
 		Mockito.verify(connection, Mockito.times(1)).prepareStatement(
-				Mockito.eq("select * from course"));
+				Mockito.eq("select * from semester"));
 
 	}
 
@@ -73,4 +73,5 @@ public class CourseDaoTest {
 				.thenReturn(preparedStatement);
 		Mockito.when(preparedStatement.executeQuery()).thenReturn(resultSet);
 	}
+
 }

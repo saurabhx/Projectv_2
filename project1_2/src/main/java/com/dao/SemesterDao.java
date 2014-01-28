@@ -54,20 +54,6 @@ public class SemesterDao {
 			e.printStackTrace();
 		}
 	}
-
-	public boolean semesterDoesNotExist(String semesterName) {
-		try {
-			Statement statement = dbUtil.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from semester where semestername="+semesterName);
-			if(rs!=null)
-				return false;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return true;
 		
-		
-	}
 
 }

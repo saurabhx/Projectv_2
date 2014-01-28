@@ -1,42 +1,30 @@
 package com.service;
 import java.sql.SQLException;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.dao.ScoreDao;
-import com.service.interfaces.DbReadable;
-import com.service.interfaces.DbWritable;
 
 
-
-public class ScoreService implements DbReadable,DbWritable{
+@Component
+public class ScoreService {
+	@Autowired
 	ScoreDao scoreDao;
 	
-	public ScoreService(){
-		scoreDao=new ScoreDao();
-	}
-
-	public void writeToDatabase() {
-		try {
-			scoreDao.addScore(0, 0, 0);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}
-
-	public void readFromDatabase() {
-		try {
-			scoreDao.getScore(0);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}
-
-	public void setSubId(int parseInt) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
+
+	public void addScore(int studentId, int subjectId, double score) throws SQLException {
+		
+			scoreDao.addScore(subjectId, subjectId, score);
+		
+		}
+
+	public Map<Integer, Double> getScore(int subjectId) throws SQLException {
+		
+			return scoreDao.getScore(subjectId);
+		
+		}
 
 }

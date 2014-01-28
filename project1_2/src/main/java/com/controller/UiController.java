@@ -14,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import com.dao.CourseDao;
-import com.dao.SemesterDao;
-import com.dao.SubjectDao;
 import com.google.gson.Gson;
 import com.model.Subject;
+import com.service.CourseService;
+import com.service.SemesterService;
+import com.service.SubjectService;
 
 @Component
 public class UiController extends HttpServlet {
@@ -32,13 +32,13 @@ public class UiController extends HttpServlet {
 	private String action="";
 	
 	@Autowired
-    private CourseDao courseDao;
+    private CourseService courseService;
     
     @Autowired
-    private SemesterDao semesterDao;
+    private SemesterService semesterService;
     
     @Autowired
-    private SubjectDao subjectDao;
+    private SubjectService subjectService;
     
     public void init(ServletConfig config) {
         SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
@@ -50,8 +50,9 @@ public class UiController extends HttpServlet {
 		if(action.equalsIgnoreCase("newstudentprofile")){
         	
         	try{
-        		request.setAttribute("courses", courseDao.getAllCourse());
-        		request.setAttribute("semesters", semesterDao.getAllSemesters());
+        		
+        		request.setAttribute("courses", courseService.getAllCourses());
+        		request.setAttribute("semesters", semesterService.getAllSemesters());
         		
         	}catch(Exception e){ e.printStackTrace();}
         	forward =ADD_STUDENT_PROFILE;
@@ -64,9 +65,9 @@ public class UiController extends HttpServlet {
 		else if(action.equalsIgnoreCase("piechartselect")){
         	
         	try{
-        		courseDao=new CourseDao();
-        		request.setAttribute("courses", courseDao.getAllCourse());
-        		request.setAttribute("semesters", semesterDao.getAllSemesters());
+        		
+        		request.setAttribute("courses", courseService.getAllCourses());
+        		request.setAttribute("semesters", semesterService.getAllSemesters());
         		
         	}catch(Exception e){ e.printStackTrace();}
         	forward =PIE_PAGE;
@@ -77,10 +78,10 @@ public class UiController extends HttpServlet {
 		}
 		else if (action.equalsIgnoreCase("populateSubjects")){
         	
-        	int cid=Integer.parseInt(request.getParameter("course"));
-        	int sid=Integer.parseInt(request.getParameter("semester"));
+        	int courseId=Integer.parseInt(request.getParameter("course"));
+        	int semesterId=Integer.parseInt(request.getParameter("semester"));
          
-        	List<Subject> subjects = subjectDao.getSubjectList(sid, cid);
+        	List<Subject> subjects = subjectService.getSubjectsBySemesterAndCourse(semesterId, courseId);
             
         	String json= new Gson().toJson(subjects);
             

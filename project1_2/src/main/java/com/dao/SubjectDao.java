@@ -39,7 +39,7 @@ public class SubjectDao {
 		return subjects;
 
 	}
-	public List<Subject> getSubjectList(int semesterId, int courseId) {
+	public List<Subject> getSubjectsBySemesterAndCourse(int semesterId, int courseId) {
 		List<Subject> subjects = new ArrayList<Subject>();
 		try {
 			Statement statement = dbUtil.getConnection().createStatement();

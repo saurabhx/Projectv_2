@@ -22,7 +22,7 @@ public class PieDao {
 	
 	
 	public List<ChartData> getPiechartOutputs(int i) {
-		List<ChartData> qr = new ArrayList<ChartData>();
+		List<ChartData> queryResult = new ArrayList<ChartData>();
 
 		try {
 			Statement statement = dbUtil.getConnection().createStatement();
@@ -35,13 +35,13 @@ public class PieDao {
 				out.setStudentName(rs.getString("studentname"));
 				out.setMarks(Double.parseDouble(rs.getString("score")));
 
-				qr.add(out);
+				queryResult.add(out);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return qr;
+		return queryResult;
 	}
 
 	public List<ChartData> getPiechartOutputsWithCondition(int i, int si) {
@@ -83,7 +83,7 @@ public class PieDao {
 			Statement statement = dbUtil.getConnection().createStatement();
 
 			ResultSet rs = statement
-					.executeQuery("select studentname,score from mapstudentscore natural join student where score  in (select max(score) from mapstudentscore where subjectId ="+subjectId+")");
+					.executeQuery("select studentname,score from mapstudentscore natural join student where score  in (select max(score) from mapstudentscore where subjectId ="+subjectId+")order by studentname limit 1");
 
 			while (rs.next()) {
 				map.put(rs.getString("studentname"),

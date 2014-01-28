@@ -1,44 +1,27 @@
 package com.service;
 
 import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.dao.SemesterDao;
-import com.service.interfaces.DbReadable;
-import com.service.interfaces.DbWritable;
-
-public class SemesterService implements DbReadable,DbWritable{
+import com.model.Semester;
+@Component
+public class SemesterService {
+	@Autowired
 	SemesterDao semesterDao;
 	
-	public SemesterService(){
-		semesterDao=new SemesterDao();
-	} 
 	
-	public void writeToDatabase(String semesterName) {
-		//if(semesterNameDoesNotExist(semesterName))
-		semesterDao.addSemester(semesterName);
+	public void addSemester(String semesterName) {
+		
+		 semesterDao.addSemester(semesterName);
 		
 	}
 
-	private boolean semesterNameDoesNotExist(String semesterName) {
-		if(semesterDao.semesterDoesNotExist(semesterName))
-			return true; 
-		
-		return false;
-	}
-
-	public void readFromDatabase() {
-		try {
-			semesterDao.getAllSemesters();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-
-	public void writeToDatabase() {
-		// TODO Auto-generated method stub
-		
+	public List<Semester> getAllSemesters() throws SQLException{
+		return semesterDao.getAllSemesters();
 	}
 
 }

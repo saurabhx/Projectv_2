@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import com.dao.PieDao;
 import com.model.ChartData;
+import com.service.PieService;
 
 @Component
 public class PieChartGenerator extends HttpServlet {
@@ -32,7 +31,7 @@ public class PieChartGenerator extends HttpServlet {
 	private int subjectId;
 	
 	@Autowired
-	private PieDao pieDao;
+	private PieService pieService;
 	
 	 public void init(ServletConfig config) {
 	        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
@@ -46,19 +45,19 @@ public class PieChartGenerator extends HttpServlet {
 		
 		subjectId=(Integer.parseInt(request.getParameter("subject")));
 			
-		List<ChartData>qr=pieDao.getPiechartOutputs(subjectId);
-		List<ChartData>qr50=pieDao.getPiechartOutputsWithCondition(1,subjectId);
-		List<ChartData>qr5075=pieDao.getPiechartOutputsWithCondition(2,subjectId);
-		List<ChartData>qr75=pieDao.getPiechartOutputsWithCondition(3,subjectId);
+		List<ChartData>queryResult=pieService.getPiechartOutputs(subjectId);
+		List<ChartData>queryResult50=pieService.getPiechartOutputsWithCondition(1,subjectId);
+		List<ChartData>queryResult5075=pieService.getPiechartOutputsWithCondition(2,subjectId);
+		List<ChartData>queryResult75=pieService.getPiechartOutputsWithCondition(3,subjectId);
 					
-		int n=qr.size();
-		int x1=qr50.size();
-		int x3=qr75.size();
-		int x2=qr5075.size();
+		int n=queryResult.size();
+		int x1=queryResult50.size();
+		int x3=queryResult75.size();
+		int x2=queryResult5075.size();
 		
-		float r[]= {x1,x2,x3,n};
+		float pieChartRatios[]= {x1,x2,x3,n};
 		
-		drawPieChart(request,response,r);
+		drawPieChart(request,response,pieChartRatios);
 }
 
 protected void drawPieChart(HttpServletRequest request,
@@ -77,8 +76,7 @@ protected void drawPieChart(HttpServletRequest request,
 		JFreeChart chart = ChartFactory.createPieChart("Pie",dataset, true, false, false);
 		chart.setBackgroundPaint(Color.white);
 		
-		 ServletContext sc = getServletContext();
-		 String filename = sc.getRealPath("pie.png");
+		 String filename = "C:\\Users\\xebia - pc\\Desktop\\New folder\\pie.png";
 		 File file = new File(filename);
 		
 		 
@@ -86,9 +84,9 @@ protected void drawPieChart(HttpServletRequest request,
 		 ChartUtilities.saveChartAsPNG(file,chart,400,300);
 		
 		request.setAttribute("filepath",filename);
-		request.setAttribute("subjectName",pieDao.getSubjectNameById(subjectId));
+		request.setAttribute("subjectName",pieService.getSubjectNameById(subjectId));
 		
-		Map<String, Double> m= pieDao.getHighestMarksForSubject(subjectId);
+		Map<String, Double> m= pieService.getHighestMarksForSubject(subjectId);
 		request.setAttribute("toppers",m);
 		
 		forward=PIE_CHART_PAGE;

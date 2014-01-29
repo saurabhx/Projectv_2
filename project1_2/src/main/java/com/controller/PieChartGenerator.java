@@ -88,7 +88,8 @@ public class PieChartGenerator extends HttpServlet {
 					true, false, false);
 			chart.setBackgroundPaint(Color.white);
 
-			String filename = "D:\\test\\pie.png";
+			String filename = System.getProperty("user.home")+"\\pie.png";
+					
 			File file = new File(filename);
 
 			ChartUtilities.saveChartAsPNG(file, chart, 400, 300);

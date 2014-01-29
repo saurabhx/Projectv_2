@@ -2,55 +2,27 @@ package com.service;
 
 
 import java.sql.SQLException;
+import java.util.List;
 
-import com.dao.*;
-import com.service.interfaces.DbReadable;
-import com.service.interfaces.DbWritable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import com.dao.CourseDao;
+import com.model.Course;
 
-public class CourseService implements DbReadable,DbWritable{
+@Component
+public class CourseService {
+	@Autowired
 	CourseDao courseDao;
-	
-	public CourseService(){
-		courseDao=new CourseDao();
-	}
-	
-	public void writeToDatabase(String courseName) {
-		try {
-			//if(courseDoesNotExist(courseName))
-			courseDao.addCourse(courseName);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-	}
-
-	private boolean courseDoesNotExist(String courseName) throws SQLException {
-		if(courseDao.courseDoesNotExist(courseName))
-			{
-			return true;
-			}else return false;
+	public List<Course> getAllCourses() throws SQLException {
 		
+		return courseDao.getAllCourse();
+			
 	}
 
-	public void readFromDatabase() {
-		try {
-			courseDao.getAllCourse();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public void createCourse(String courseName) throws SQLException {
+		courseDao.addCourse(courseName);
 	}
-
-	public void writeToDatabase() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-	
 
 }

@@ -1,42 +1,26 @@
 package com.service;
 
 import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.dao.SubjectDao;
-import com.service.interfaces.DbReadable;
-import com.service.interfaces.DbWritable;
+import com.model.Subject;
 
-public class SubjectService implements DbReadable,DbWritable{
+@Component
+public class SubjectService {
+	@Autowired
 	SubjectDao subjectDao;
 	
-	public SubjectService(){
-		subjectDao=new SubjectDao();
+	public List<Subject> getAllSubjects() throws SQLException{
+		return subjectDao.getAllSubjects();
 	}
-
-	public void writeToDatabase(String subjectName) {
-		try {
-			subjectDao.addSubject(subjectName);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public List<Subject> getSubjectsBySemesterAndCourse(int semesterId, int courseId) throws SQLException{
+		return subjectDao.getSubjectsBySemesterAndCourse(semesterId, courseId);
 	}
-
-	public void readFromDatabase() {
-		try {
-			subjectDao.getAllSubjects();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public void addSubject(String subjectName) throws SQLException{
+		subjectDao.addSubject(subjectName);
 	}
-
-	public void writeToDatabase() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 }

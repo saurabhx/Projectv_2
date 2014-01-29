@@ -3,7 +3,6 @@ package com.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,58 +14,56 @@ import com.util.DbUtil;
 
 @Component
 public class SubjectDao {
-	
+
 	private Subject subject = new Subject();
-	
+
 	@Autowired
 	DbUtil dbUtil;
-	
-	
+
 	public List<Subject> getAllSubjects() throws SQLException {
 		List<Subject> subjects = new ArrayList<Subject>();
 
-		Statement statement = dbUtil.getConnection().createStatement();
+		PreparedStatement preparedStatement = dbUtil.getConnection()
+				.prepareStatement("select * from subject");
+		ResultSet resultSet = preparedStatement.executeQuery();
 
-		ResultSet rs = statement.executeQuery("select * from subject");
-
-		while (rs.next()) {
-			subject=new Subject();
-			subject.setSubjectId(rs.getInt("subjectid"));
-			subject.setSubjectName(rs.getString("subjectname"));
+		while (resultSet.next()) {
+			subject = new Subject();
+			subject.setSubjectId(resultSet.getInt("subjectid"));
+			subject.setSubjectName(resultSet.getString("subjectname"));
 			subjects.add(subject);
 		}
 
 		return subjects;
 
 	}
-	public List<Subject> getSubjectList(int semesterId, int courseId) {
+
+	public List<Subject> getSubjectsBySemesterAndCourse(int semesterId,
+			int courseId) throws SQLException {
 		List<Subject> subjects = new ArrayList<Subject>();
-		try {
-			Statement statement = dbUtil.getConnection().createStatement();
 
-			ResultSet rs = statement
-					.executeQuery("select * from mapsemestersubject natural join subject where semesterid ="
-							+ semesterId + " and courseid =" + courseId);
+		PreparedStatement preparedStatement = dbUtil.getConnection()
+				.prepareStatement(
+						"select * from mapsemestersubject natural join subject where semesterid ="
+								+ semesterId + " and courseid =" + courseId);
+		ResultSet resultSet = preparedStatement.executeQuery();
 
-			while (rs.next()) {
-				subject = new Subject();
-				subject.setSubjectId(rs.getInt("subjectid"));
-				subject.setSubjectName(rs.getString("subjectname"));
-				subjects.add(subject);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		while (resultSet.next()) {
+			subject = new Subject();
+			subject.setSubjectId(resultSet.getInt("subjectid"));
+			subject.setSubjectName(resultSet.getString("subjectname"));
+			subjects.add(subject);
 		}
 
 		return subjects;
 
 	}
 
-
 	public void addSubject(String subject) throws SQLException {
 
 		PreparedStatement preparedStatement = dbUtil.getConnection()
-				.prepareStatement("insert into subject(subjectname) values ( ?)");
+				.prepareStatement(
+						"insert into subject(subjectname) values ( ?)");
 
 		preparedStatement.setString(1, subject);
 		preparedStatement.executeUpdate();

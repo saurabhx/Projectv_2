@@ -3,7 +3,6 @@ package com.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class StudentDao {
 	
 	private PreparedStatement preparedStatement;
 	private Student student = new Student();
-	private ResultSet rs;
+	
 	
 	@Autowired
 	DbUtil dbUtil;
@@ -34,9 +33,11 @@ public class StudentDao {
 
 		preparedStatement = dbUtil.getConnection()
 				.prepareStatement("select last_insert_id() from student");
-		if (rs.next()) {
+		ResultSet resultSet= preparedStatement.executeQuery();
+		
+		if (resultSet.next()) {
 
-			studentId = rs.getInt("last_insert_id()");
+			studentId = resultSet.getInt("last_insert_id()");
 		}
 		return studentId;
 
@@ -44,14 +45,14 @@ public class StudentDao {
 
 	public List<Student> getAllStudents() throws SQLException {
 		List<Student> students = new ArrayList<Student>();
+		preparedStatement = dbUtil.getConnection()
+				.prepareStatement("select * from student");
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while (resultSet.next()) {
 
-		Statement statement = dbUtil.getConnection().createStatement();
-		rs = statement.executeQuery("select * from student");
-		while (rs.next()) {
+			student.setStudentId((resultSet.getInt("studentid")));
 
-			student.setStudentId((rs.getInt("studentid")));
-
-			student.setStudentName((rs.getString("studentname")));
+			student.setStudentName((resultSet.getString("studentname")));
 
 			students.add(student);
 		}
@@ -62,14 +63,14 @@ public class StudentDao {
 
 	public String getStudentNameById(int studentId) throws SQLException {
 
-		preparedStatement = (PreparedStatement)dbUtil.getConnection()
+		preparedStatement = dbUtil.getConnection()
 				.prepareStatement("select studentname from student where studentid= "
 						+ studentId);
 
-		rs = preparedStatement.executeQuery();
-		if (rs.next()) {
+		ResultSet resultSet= preparedStatement.executeQuery();
+		if (resultSet.next()) {
 
-			return rs.getString("studentname");
+			return resultSet.getString("studentname");
 
 		}
 		return null;

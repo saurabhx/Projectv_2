@@ -1,44 +1,28 @@
 package com.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.dao.StudentDao;
 import com.model.Student;
-import com.service.interfaces.DbReadable;
-import com.service.interfaces.DbWritable;
-import com.dao.*;
 
-public class StudentService implements DbReadable,DbWritable{
+@Component
+public class StudentService {
+	@Autowired
 	StudentDao studentDao;
-	Student student;
-	
-	public StudentService(){
-		studentDao=new StudentDao();
-	}
-	
-	public void writeToDatabase(String arg) {
-		try {
+
+	public void addStudent(Student student) throws SQLException {
 			studentDao.addStudent(student);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
-	public void readFromDatabase() {
-		try {
-			studentDao.getAllStudents();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-
-	public void writeToDatabase() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
+ public List<Student> getAllStudents() throws SQLException{
+	 return studentDao.getAllStudents();
+ }
+ 
+ public String getStudentNameById(int studentId) throws SQLException{
+	 return studentDao.getStudentNameById(studentId);
+ }
 }

@@ -3,12 +3,12 @@ package com.controller;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,83 +22,92 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import com.dao.PieDao;
 import com.model.ChartData;
+import com.service.PieService;
 
 @Component
 public class PieChartGenerator extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String PIE_CHART_PAGE="jsp/viewpie.jsp";
+	private static String PIE_CHART_PAGE = "jsp/viewpie.jsp";
 	private int subjectId;
-	
+
 	@Autowired
-	private PieDao pieDao;
-	
-	 public void init(ServletConfig config) {
-	        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
-	          config.getServletContext());
-	      }
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	private PieService pieService;
+
+	public void init(ServletConfig config) {
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+				config.getServletContext());
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		subjectId=(Integer.parseInt(request.getParameter("subject")));
-			
-		List<ChartData>qr=pieDao.getPiechartOutputs(subjectId);
-		List<ChartData>qr50=pieDao.getPiechartOutputsWithCondition(1,subjectId);
-		List<ChartData>qr5075=pieDao.getPiechartOutputsWithCondition(2,subjectId);
-		List<ChartData>qr75=pieDao.getPiechartOutputsWithCondition(3,subjectId);
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		subjectId = (Integer.parseInt(request.getParameter("subject")));
+
+		List<ChartData> queryResult;
+		try {
+			queryResult = pieService.getPiechartOutputs(subjectId);
+			List<ChartData> queryResult50 = pieService
+					.getPiechartOutputsWithCondition(1, subjectId);
+			List<ChartData> queryResult5075 = pieService
+					.getPiechartOutputsWithCondition(2, subjectId);
+			List<ChartData> queryResult75 = pieService
+					.getPiechartOutputsWithCondition(3, subjectId);
+
+			float pieChartRatios[] = { queryResult50.size(),
+					queryResult5075.size(), queryResult75.size(),
+					queryResult.size() };
+
+			drawPieChart(request, response, pieChartRatios);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	protected void drawPieChart(HttpServletRequest request,
+			HttpServletResponse response, float[] ratio) throws IOException,
+			ServletException {
+
+		String forward = "";
+
+		try {
+			DefaultPieDataset dataset = new DefaultPieDataset();
+
+			dataset.setValue("Marks <50", (ratio[0] / ratio[3]) * 100);
+			dataset.setValue("Marks b/w 50-75", (ratio[1] / ratio[3]) * 100);
+			dataset.setValue("Marks >75", (ratio[2] / ratio[3]) * 100);
+
+			JFreeChart chart = ChartFactory.createPieChart("Pie", dataset,
+					true, false, false);
+			chart.setBackgroundPaint(Color.white);
+
+			String filename = System.getProperty("user.home")+"\\pie.png";
 					
-		int n=qr.size();
-		int x1=qr50.size();
-		int x3=qr75.size();
-		int x2=qr5075.size();
-		
-		float r[]= {x1,x2,x3,n};
-		
-		drawPieChart(request,response,r);
-}
+			File file = new File(filename);
 
-protected void drawPieChart(HttpServletRequest request,
-		HttpServletResponse response, float[] r) throws IOException, ServletException {
-	
-	String forward="";
+			ChartUtilities.saveChartAsPNG(file, chart, 400, 300);
 
-	try {
-		DefaultPieDataset dataset = new DefaultPieDataset();
+			request.setAttribute("filepath", filename);
+			request.setAttribute("subjectName",
+					pieService.getSubjectNameById(subjectId));
 
-		dataset.setValue("Marks <50", (r[0]/r[3])*100);
-		dataset.setValue("Marks b/w 50-75",(r[1]/r[3])*100);
-		dataset.setValue("Marks >75", (r[2]/r[3])*100);
-			
-		
-		JFreeChart chart = ChartFactory.createPieChart("Pie",dataset, true, false, false);
-		chart.setBackgroundPaint(Color.white);
-		
-		 ServletContext sc = getServletContext();
-		 String filename = sc.getRealPath("pie.png");
-		 File file = new File(filename);
-		
-		 
-		
-		 ChartUtilities.saveChartAsPNG(file,chart,400,300);
-		
-		request.setAttribute("filepath",filename);
-		request.setAttribute("subjectName",pieDao.getSubjectNameById(subjectId));
-		
-		Map<String, Double> m= pieDao.getHighestMarksForSubject(subjectId);
-		request.setAttribute("toppers",m);
-		
-		forward=PIE_CHART_PAGE;
-        RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
-    
-	} catch (Exception e) {
-		System.out.println(e.toString());
+			Map<String, Double> map = pieService
+					.getHighestMarksForSubject(subjectId);
+			request.setAttribute("toppers", map);
+
+			forward = PIE_CHART_PAGE;
+			RequestDispatcher view = request.getRequestDispatcher(forward);
+			view.forward(request, response);
+
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
 	}
 }
-}
-
-

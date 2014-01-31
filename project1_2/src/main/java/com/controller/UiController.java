@@ -81,13 +81,11 @@ public class UiController extends HttpServlet {
 
 			int courseId = Integer.parseInt(request.getParameter("course"));
 			int semesterId = Integer.parseInt(request.getParameter("semester"));
-
 			List<Subject> subjects;
 			try {
 				subjects = subjectService.getSubjectsBySemesterAndCourse(
 						semesterId, courseId);
 				String json = new Gson().toJson(subjects);
-
 				request.setAttribute("subjects", subjects);
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");

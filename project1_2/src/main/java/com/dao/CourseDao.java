@@ -6,11 +6,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.model.Course;
 import com.util.DbUtil;
+import com.util.HibernateUtil;
 
 @Component
 public class CourseDao {
@@ -23,19 +25,9 @@ public class CourseDao {
 
 	
 	public List<Course> getAllCourse() throws SQLException {
-
+		Session session= HibernateUtil.getSessionFactory().openSession();
 		List<Course> courses = new ArrayList<Course>();
-		preparedStatement = dbUtil.getConnection()
-				.prepareStatement("select * from course");
-		resultSet = preparedStatement.executeQuery();
-	
-		while (resultSet.next()) {
-			Course course = new Course();
-			course.setCourseName(resultSet.getString("coursename"));
-			course.setCourseId(resultSet.getInt("courseid"));
-			courses.add(course);
-			
-		}
+		courses=session.createCriteria(Course.class).list();
 		return courses;
 
 	}

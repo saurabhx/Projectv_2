@@ -8,11 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.model.ChartData;
 import com.util.DbUtil;
+import com.util.HibernateUtil;
 
 @Component
 public class PieDao {
@@ -25,19 +28,9 @@ public class PieDao {
 	public List<ChartData> getPiechartOutputs(int subjectId)
 			throws SQLException {
 		List<ChartData> queryResult = new ArrayList<ChartData>();
-		preparedStatement = dbUtil
-				.getConnection()
-				.prepareStatement(
-						"select studentid,studentname,score from college.mapstudentscore natural join college.student where subjectid="
-								+ subjectId);
-		resultSet = preparedStatement.executeQuery();
-
-		while (resultSet.next()) {
-			ChartData chartData = returnChartData(resultSet);
-
-			queryResult.add(chartData);
-		}
-
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		Query query = session.createQuery("select studentid,studentname,score from mapstudentscore natural join student where subjectid="+ subjectId);
+		queryResult=query.list();
 		return queryResult;
 	}
 
@@ -56,56 +49,33 @@ public class PieDao {
 			query = "select studentid,studentname,score from college.mapstudentscore natural join college.student where subjectid="
 					+ subjectId + " and score > 75";
 		}
-
-		preparedStatement = dbUtil.getConnection().prepareStatement(query);
-		resultSet = preparedStatement.executeQuery();
-		while (resultSet.next()) {
-			ChartData chartData = returnChartData(resultSet);
-
-			qr.add(chartData);
-		}
-
+		
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		Query queryHibernate = session.createSQLQuery(query);
+		qr=queryHibernate.list();
+	
 		return qr;
 	}
 
-	private ChartData returnChartData(ResultSet resultSet) throws SQLException {
-		ChartData chartData = new ChartData();
-		chartData.setStudentId((resultSet.getInt("studentid")));
-		chartData.setStudentName(resultSet.getString("studentname"));
-		chartData.setMarks(Double.parseDouble(resultSet.getString("score")));
-		return chartData;
-	}
+	
 
 	public Map<String, Double> getHighestMarksForSubject(int subjectId)
 			throws SQLException {
 		Map<String, Double> map = new HashMap<String, Double>();
-
-		preparedStatement = dbUtil
-				.getConnection()
-				.prepareStatement(
-						"select studentname,score from mapstudentscore natural join student where score  in (select max(score) from mapstudentscore where subjectId ="
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		Query query	= session.createSQLQuery("select studentname,score from mapstudentscore natural join student where score  in (select max(score) from mapstudentscore where subjectId ="
 								+ subjectId + ")order by studentname limit 1");
-		resultSet = preparedStatement.executeQuery();
-
-		while (resultSet.next()) {
-			map.put(resultSet.getString("studentname"),
-					resultSet.getDouble("score"));
-		}
-
+		map= (Map<String, Double>) query.list();
+		
 		return map;
 	}
 
 	public String getSubjectNameById(int subjectId) throws SQLException {
 		String subjectName = "";
-
-		preparedStatement = dbUtil.getConnection().prepareStatement(
-				"select subjectname from subject where subjectId=" + subjectId);
-		resultSet = preparedStatement.executeQuery();
-
-		while (resultSet.next()) {
-			subjectName = resultSet.getString("subjectName");
-		}
-
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		Query query = session.createSQLQuery("select subjectname from subject where subjectId=" + subjectId);
+		subjectName = query.list().toString();		
+		
 		return subjectName;
 	}
 

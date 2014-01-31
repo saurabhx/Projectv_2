@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.cfg.beanvalidation.HibernateTraversableResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.model.Semester;
 import com.util.DbUtil;
+import com.util.HibernateUtil;
 
 @Component
 public class SemesterDao {
@@ -26,19 +29,8 @@ public class SemesterDao {
 	}
 
 	public List<Semester> getAllSemesters() throws SQLException {
-		List<Semester> semesters = new ArrayList<Semester>();
-
-		preparedStatement = dbUtil.getConnection().prepareStatement(
-				"select * from semester");
-
-		resultSet = preparedStatement.executeQuery();
-		while (resultSet.next()) {
-			semester = new Semester();
-			semester.setSemesterId((resultSet.getInt("semesterId")));
-			semester.setSemesterName((resultSet.getString("semesterName")));
-			semesters.add(semester);
-		}
-
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Semester> semesters = session.createCriteria(Semester.class).list();
 		return semesters;
 
 	}
